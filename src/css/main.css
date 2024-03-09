@@ -1,1 +1,19 @@
-@import url('./style.css');
+/*
+.main
+*/
+
+.main {
+  margin-top: 230px;
+  background-color: var(--main-bkg);
+  color: var(--main-txt);
+}
+@media screen and (min-width: 768px) {
+  .main {
+    margin-top: 216px;
+  }
+}
+
+.main-container {
+  padding-top: 60px;
+  padding-bottom: 60px;
+}

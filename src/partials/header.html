@@ -3,7 +3,7 @@
     <div class="head-top">
       <div class="head-title-container">
         <svg class="head-svg-icon-logo">
-          <use href="./images/icons.svg#icon.logo"></use>
+          <use href="./images/icons.svg#icon-logo"></use>
         </svg>
         <h1 class="head-title">Filmoteka</h1>
       </div>
@@ -16,13 +16,16 @@
     </div>
     <div class="head-search-form-container">
       <form id="formSearch" class="head-search-form">
-        <input type="text" id="searchInput" class="head-search-input" placeholder="Movie search">
-        <button id="searchButton" class="head-search-button">
+        <input type="text" id="searchInput" class="input head-search-input" placeholder="Movie search">
+        <button id="searchButton" class="btn head-search-btn">
           <svg class="head-svg-icon-search">
             <use href="./images/icons.svg#icon-search"></use>
           </svg>
         </button>
       </form>
+    </div>
+    <div class="head-error-container is-hidden">
+      <p class="head-error">Search result not successful. Enter the correct movie name and try again.</p>
     </div>
   </div>
 </div>

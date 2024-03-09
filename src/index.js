@@ -1,12 +1,12 @@
-import './js/tmdb-api';
+import './js/api-tmdb';
 
 import {
+  fetchGenres,
   fetchTrendingMovies,
-  fetchSearchMovies,
+  fetchMoviesByKeywords,
   fetchMovieDetails,
-  fetchMovieTrailers,
-} from './js/tmdb-api';
-import { showGallery } from './js/gallery';
+  fetchMovieTrailers
+} from './js/api-tmdb';
 
 const form = document.querySelector('#search-form');
 const search = form.querySelector('#search-input');

@@ -8,42 +8,15 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Delius+Unicase:wght@400;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="./css/style.css" />
-  <script type="module" src="./js/index.js" defer></script>
+  <link rel="stylesheet" href="./css/main.css" />
+  <script type="module" src="./index.js" defer></script>
 </head>
 
 <body>
-  <div class="top">
-    <div class="container">
-      <div class="header">
-        <h1 class="title">Find your movie</h1>
-        <form class="search-form" id="search-form">
-          <input type="text" class="input search-input" name="searchQuery" autocomplete="off"
-            placeholder="What are you looking for..." />
-          <button type="submit" class="btn search-btn">
-            <svg class="search-icon" width="28" height="28">
-              <use href="./images/icons.svg#search"></use>
-            </svg>
-          </button>
-        </form>
-      </div>
-    </div>
-  </div>
-  <div class="main">
-    <div class="container">
-      <div class="error"></div>
-      <div class="hits"></div>
-      <div class="gallery">
-      </div>
-      <div class="message"></div>
-    </div>
-  </div>
-  <div class="bottom">
-    <div class="container">
-      <!-- <button type="button" class="btn load-more-btn">Load more</button> -->
-      <p>Created by Anita Przedwojewska, 2024</p>
-    </div>
-  </div>
+  <include src="./partials/header.html"></include>
+  <include src="./partials/movies.html"></include>
+  <include src="./partials/footer.html"></include>
+  <script src="./index.js" type="module"></script>
 </body>
 
 </html>

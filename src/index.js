@@ -1,16 +1,18 @@
-import './js/api-tmdb';
+// import './js/api-tmdb';
+import './js/modals';
 
 import {
   fetchGenres,
   fetchTrendingMovies,
   fetchMoviesByKeywords,
   fetchMovieDetails,
-  fetchMovieTrailers
+  fetchMovieTrailers,
 } from './js/api-tmdb';
+import { showGallery } from './js/movies';
 
-const form = document.querySelector('#search-form');
-const search = form.querySelector('#search-input');
-const moviesGallery = document.querySelector('#movies-gallery');
+const form = document.querySelector('#formSearch');
+const search = form.querySelector('#formInput');
+const moviesGallery = document.querySelector('#moviesGallery');
 console.log('moviesGallery: ', moviesGallery);
 
 let searchWords;
@@ -21,20 +23,20 @@ let pages;
 // send new words for new searching
 // form.addEventListener('submit', showMoviesGallery);
 
-showMovies();
+showTrendingMovies();
 // showGenres();
 
-async function showMovies() {
+async function showTrendingMovies() {
   try {
     const page = 1;
-    const keywords = 'marvel';
-    const movieId = 693134;
-    // const moviesList = await fetchTrendingMovies(page);
+    // const keywords = 'marvel';
+    // const movieId = 693134;
+    const moviesList = await fetchTrendingMovies(page);
     // const moviesList = await fetchSearchMovies(keywords, page);
     // const moviesList = await fetchMovieDetails(movieId);
-    const moviesList = await fetchMovieTrailers(movieId);
+    // const moviesList = await fetchMovieTrailers(movieId);
     console.log('results: ', moviesList.results);
-    // showGallery(moviesList.results, moviesGallery);
+    showGallery(moviesList.results, moviesGallery);
   } catch (error) {
     console.log(error);
   }

@@ -1,4 +1,4 @@
-import { GENRES_LIST } from "./api-tmdb";
+import { GENRES_LIST } from './api-tmdb';
 
 // const POSTERS_URL = 'https://image.tmdb.org/t/p/w500/'; png
 const POSTERS_URL = 'https://image.tmdb.org/t/p/original/'; // jpg
@@ -67,4 +67,12 @@ export async function showGallery(list, gallery) {
   // console.log('galleryItems: ', galleryItems);
   const galleryAll = galleryItems.join('');
   gallery.insertAdjacentHTML('beforeend', galleryAll);
+}
+
+export function showWatched() {
+  console.log('showWatched starts...');
+}
+
+export function showQueue() {
+  console.log('showQueue starts...');
 }

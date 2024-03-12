@@ -1,4 +1,4 @@
-<div class="header">
+<div class="header home">
   <div class="container head-container">
     <div class="head-top">
       <div class="head-title-container">
@@ -9,8 +9,9 @@
       </div>
       <nav class="head-nav-container">
         <ul class="head-nav">
-          <li class="head-nav-item"><a class="link head-nav-link">Home</a></li>
-          <li class="head-nav-item"><a class="link head-nav-link">My library</a></li>
+          <li class="head-nav-item"><a href="./index.html" id="homeLink" class="link head-nav-link active">Home</a></li>
+          <li class="head-nav-item"><a href="./index.html" id="libraryLink" class="link head-nav-link">My library</a>
+          </li>
         </ul>
       </nav>
     </div>
@@ -24,7 +25,13 @@
         </button>
       </form>
     </div>
-    <div class="head-error-container is-hidden">
+    <div class="head-lib-btns-container is-hidden">
+      <div class="head-lib-btns">
+        <button id="watchedBtn" class="btn head-lib-btn active">Watched</button>
+        <button id="queueBtn" class="btn head-lib-btn">Queue</button>
+      </div>
+    </div>
+    <div class="head-error-container invisible">
       <p class="head-error">Search result not successful. Enter the correct movie name and try again.</p>
     </div>
   </div>

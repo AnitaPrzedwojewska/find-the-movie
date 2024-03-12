@@ -28,5 +28,9 @@ function AddToWatched(movie, list) {
 }
 
 function RemoveFromWatched(movie, list) {
-  
+  if (!list.include(movie)) {
+    return
+  }
+  list.remove(movie);
+  setToLocalStorage(WATCHED, list);
 }

@@ -1,0 +1,8 @@
+.invisible {
+  opacity: 0;
+  cursor: default;
+}
+
+.is-hidden {
+  display: none;
+}

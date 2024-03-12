@@ -1,6 +1,7 @@
 /*
 .movies
 .mov-container
+.mov-title
 .mov-gallery
 .mov-gallery-card
 .mov-gallery-poster
@@ -8,6 +9,15 @@
 .mov-gallery-title
 .mov-gallery-txt
 */
+
+.mov-title {
+  text-align: center;
+  /* width: 100%; */
+  /* margin: 0 auto; */
+  margin-bottom: 32px;
+  font-size: 28px;
+  color: var(--main-accent);
+}
 
 .mov-gallery {
   display: flex;

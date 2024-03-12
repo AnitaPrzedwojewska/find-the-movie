@@ -32,14 +32,21 @@
 
 .foot-info {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
+  flex-wrap: wrap;
   justify-content: center;
   align-items: center;
   gap: 5px;
 }
+@media screen and (min-width: 768px) {
+  .foot-info {
+    flex-direction: row;
+  }
+}
 
 .foot-txt {
-  display: block;
+  display: flex;
+  gap: 10px;
 }
 
 .foot-svg-icon-heart {

@@ -145,6 +145,11 @@
   font-weight: 500;
   line-height: 1.17;
 }
+@media screen and (max-width: 767px) {
+  .head-title {
+    display: none;
+  }
+}
 
 .head-nav-container {
   display: flex;
@@ -176,10 +181,16 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 100%
+}
+@media screen and (min-width: 768px) {
+  .head-search-form {
+    width: 394px;
+  }
 }
 
 .head-search-input {
-  width: 394px;
+  width: 100%;
   padding: 10px;
   outline: none;
   border: none;
@@ -187,6 +198,7 @@
   color: inherit;
   background-color: transparent;
 }
+
 .head-search-input:focus-within {
   border: none;
   border-radius: 5px;

@@ -24,7 +24,7 @@ let pages;
 // send new words for new searching
 // form.addEventListener('submit', showMoviesGallery);
 
-// showTrendingMovies();
+showTrendingMovies();
 // showGenres();
 
 async function showTrendingMovies() {

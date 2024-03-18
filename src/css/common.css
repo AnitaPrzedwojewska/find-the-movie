@@ -15,7 +15,13 @@ breakpoints:
   --foot-bkg: #f7f7f7;
   --foot-txt: #545454;
   --foot-accent: #ff6b08;
-  --mod-bkg: black;
+  --mod-cov: rgba(0, 0, 0, 0.5);
+  --mod-bkg: white;
+  --mod-btn: #f7f7f7;
+  --mod-txt: black;
+  --mod-txt-light: #8c8c8c;
+  --btn-active: #ff6b08;
+  --btn-active-txt: white;
 }
 
 * {
@@ -32,7 +38,7 @@ body {
 body {
   font-family: Roboto, sans-serif;
   font-size: 12px;
-  font-weight: medium;
+  font-weight: 500;
   line-height: 1.2;
   background-color: var(--bkg);
 }
@@ -82,12 +88,37 @@ a {
 }
 
 .modal {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
-  z-index: 99;
+  z-index: 10;
   width: 100%;
   height: 100%;
-  background-color: var(--mod-bkg);
-  opacity: 0.5;
+  overflow: auto;
+  background-color: var(--mod-cov);
+  display: flex;
+  justify-content: center;
+  align-items: start;
 }
+
+.svg-close {
+  width: 14px;
+  height: 14px;
+}
+
+.animate {
+  transition-duration: 0.3s;
+  transition-timing-function: easy;
+}
+
+/* .animation-zoom {
+  transition-delay: 0.5s;
+  animation-duration: 0.6s;
+  animation-timing-function: ease;
+  animation-delay: 0s;
+  animation-iteration-count: 1;
+  animation-play-state: running;
+  animation-name: animatezoom;
+  animation-timeline: auto;
+  animation-range-start: normal;
+} */

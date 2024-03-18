@@ -2,51 +2,25 @@
 import './js/modals';
 import './js/header.js';
 
-import {
-  fetchGenres,
-  fetchTrendingMovies,
-  fetchMoviesByKeywords,
-  fetchMovieDetails,
-  fetchMovieTrailers,
-} from './js/api-tmdb';
-import { showGallery } from './js/movies';
+import { form, search, galleryTitle, moviesGallery } from './js/refs';
 
-const form = document.querySelector('#formSearch');
-const search = form.querySelector('#formInput');
-const moviesGallery = document.querySelector('#moviesGallery');
-console.log('moviesGallery: ', moviesGallery);
+import { showTrendingMovies, showSearchedMovies } from './js/movies';
 
-let searchWords;
-let keywords;
-let page;
-let pages;
+import { hideShowScrollToTop, scrollToTop } from './js/to-top';
+
+import { toTopBtn } from './js/refs';
+
+import { searchWord, keywords, page, pages, results } from './js/refs';
 
 // send new words for new searching
 // form.addEventListener('submit', showMoviesGallery);
 
 showTrendingMovies();
-// showGenres();
 
-async function showTrendingMovies() {
-  try {
-    const page = 1;
-    // const keywords = 'marvel';
-    // const movieId = 693134;
-    const moviesList = await fetchTrendingMovies(page);
-    // const moviesList = await fetchSearchMovies(keywords, page);
-    // const moviesList = await fetchMovieDetails(movieId);
-    // const moviesList = await fetchMovieTrailers(movieId);
-    console.log('results: ', moviesList.results);
-    showGallery(moviesList.results, moviesGallery);
-  } catch (error) {
-    console.log(error);
-  }
-}
+window.addEventListener('scroll', hideShowScrollToTop);
+form.addEventListener('submit', event => {
+  event.preventDefault();
+  showSearchedMovies();
+});
 
-// async function showGenres() {
-//   try {
-//     const genresList = await getGenres();
-//   } catch {
-//     console.log(error);
-//   }
-// }
+

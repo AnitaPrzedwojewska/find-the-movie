@@ -1,33 +1,44 @@
 <div class="modal" mod-details>
   <div class="mod-details">
-    <button type="button" class="btn mod-close" mod-details-close>
-      <svg class="mod-svg-close">
+    <button type="button" class="btn mod-close animate" mod-details-close>
+      <svg class="svg-close">
         <use href="./images/icons.svg#icon-x-close"></use>
       </svg>
     </button>
-    <div class="mod-det-poster">
-      <img src="./image/movies/poster.jpg">
+    <div class="mod-det-poster">plakat
+      <!-- <img src="./image/movies/poster.jpg"> -->
     </div>
     <div class="mod-det-info">
       <h2 class="mod-det-title">Tytul</h2>
-      <div class="mod-det-details">
-        <dl class="mod-det-details-list">
-          <dt>Vote / Votes</dt>
-          <dd></dd>
-          <dt>Popularity</dt>
-          <dd></dd>
-          <dt>Original title</dt>
-          <dd></dd>
-          <dt>Genre</dt>
-          <dd></dd>
-        </dl>
-      </div>
+      <ul class="list mod-det-list">
+        <li class="mod-det-item">
+          <p class="mod-det-item-name">Vote / Votes</p>
+          <p class="mod-det-item-value">7.3 / 1260</p>
+        </li>
+        <li class="mod-det-item">
+          <p class="mod-det-item-name">Popularity</p>
+          <p class="mod-det-item-value">100.2</p>
+        </li>
+        <li class="mod-det-item">
+          <p class="mod-det-item-name">Original title</p>
+          <p class="mod-det-item-value">Oryginalny tytuł</p>
+        </li>
+        <li class="mod-det-item">
+          <p class="mod-det-item-name">Genre</p>
+          <p class="mod-det-item-value">Fantasy, horror</p>
+        </li>
+      </ul>
       <div class="mod-det-about">
         <h3>About</h3>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus nam illo dignissimos magnam veritatis hic
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus nam illo dignissimos magnam veritatis
+          hic
           dicta. Officiis excepturi quae nobis, placeat in nulla doloremque tempora earum consectetur. Aspernatur
           provident necessitatibus, delectus expedita facere voluptas. Totam, animi! Ipsam neque voluptate, vero
           molestiae itaque laborum a recusandae cum modi ex, ad nisi!</p>
+      </div>
+      <div class="mod-det-btns">
+        <button class="btn mod-det-btn watched animate">Add to watched</button>
+        <button class="btn mod-det-btn queue animate">Add to queue</button>
       </div>
     </div>
   </div>

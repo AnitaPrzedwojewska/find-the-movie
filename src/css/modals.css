@@ -2,7 +2,6 @@
 .mod-details
 .mod-trailer
 .mod-close
-.mod-svg-close
 .mod-det-poster
 .mod-det-info
 .mod-det-title
@@ -12,13 +11,13 @@
 */
 
 .mod-details {
-  position: absolute;
+  position: relative;
+  margin: 10vh auto;
   width: calc(100% - 40px);
-  height: calc(100% - 40px);
-  overflow: scroll;
-  top: 50%;
-  left: 50%;
-  transform: translate(50%, 50%);
+  /* height: calc(100% - 40px); */
+  overflow: auto;
+  background-color: var(--mod-bkg);
+  color: var(--mod-txt);
   display: flex;
   flex-direction: column;
   row-gap: 20px;
@@ -32,7 +31,7 @@
 @media screen and (min-width: 768px) {
   .mod-details {
     width: 704px;
-    height: 552px;
+    /* height: 552px; */
     flex-direction: row;
     column-gap: 32px;
     padding: 40px 32px;
@@ -41,40 +40,51 @@
 @media screen and (min-width: 1280px) {
   .mod-details {
     width: 806px;
-    height: 558px;
+    /* height: 558px; */
     padding: 40px 16px;
   }
 }
 
 .mod-close {
-  display: absolute;
+  position: absolute;
   top: 16px;
   right: 16px;
+  padding: 5px;
+  background-color: var(--mod-btn);
+  border-radius: 50%;
+  transition-property: background-color, color;
 }
-
-.mod-svg-close {
-  width: 28px;
-  height: 28px;
+.mod-close:hover {
+  background-color: var(--btn-active);
+  color: var(--btn-active-txt);
 }
-
 .mod-det-poster {
-  width: 100%;
+  min-width: 100%;
+  max-width: 100%;
+  background-color: chocolate;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 @media screen and (min-width: 320px) {
   .mod-det-poster {
-    width: 240px;
+    min-width: 240px;
+    max-width: 240px;
     height: 325px;
   }
 }
 @media screen and (min-width: 768px) {
   .mod-det-poster {
-    width: 304px;
+    min-width: 304px;
+    max-width: 304px;
     height: 412px;
   }
 }
 @media screen and (min-width: 1280px) {
   .mod-det-poster {
-    width: 355px;
+    min-width: 355px;
+    max-width: 355px;
     height: 481px;
   }
 }
@@ -86,23 +96,96 @@
 }
 
 .mod-det-title {
+  font-size: 20px;
+  line-height: 1.4;
   text-transform: uppercase;
 }
-
-.mod-det-details {
-  color: var(--foot-txt);
+@media screen and (min-width: 1280px) {
+  .mod-det-title {
+    font-size: 30px;
+  }
 }
 
-.mod-det-details-list {
+.mod-det-list {
   display: flex;
   flex-direction: column;
   row-gap: 12px;
 }
 
-.mod-det-details-list > dl > dt {
-  width: 180px;
+.mod-det-item {
+  display: flex;
+}
+
+.mod-det-item-name {
+  width: 108px;
+  color: var(--mod-txt-light);
+}
+/* @media screen and (min-width: 768px) {
+  .mod-det-item-name {
+    width: 108px;
+  }
+} */
+@media screen and (min-width: 1280px) {
+  .mod-det-item-name {
+    width: 152px;
+  }
+}
+
+.mod-det-item-value {
+  width: 152px;
 }
 
 .mod-det-about > h3 {
   text-transform: uppercase;
+}
+
+.mod-det-about {
+  line-height: 1.8;
+}
+
+.mod-det-btns {
+  display: flex;
+  justify-content: space-between;
+}
+@media screen and (min-width: 768px) {
+  .mod-det-btns {
+    justify-content: start;
+    column-gap: 15px;
+  }
+}
+
+.mod-det-btn {
+  width: calc(50% - 8px);
+  height: 44px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px;
+  background-color: transparent;
+  border: 1px solid var(--mod-txt);
+  border-radius: 5px;
+  font-size: inherit;
+  text-transform: uppercase;
+  transition-property: background-color, border, color;
+}
+@media screen and (min-width: 320px) {
+  .mod-det-btn {
+    width: 110px;
+  }
+}
+@media screen and (min-width: 768px) {
+  .mod-det-btn {
+    width: 125px;
+  }
+}
+@media screen and (min-width: 1280px) {
+  .mod-det-btn {
+    width: 136px;
+  }
+}
+
+.mod-det-btn:hover {
+  background-color: var(--btn-active);
+  border-color: var(--btn-active);
+  color: var(--btn-active-txt);
 }

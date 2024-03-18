@@ -71,7 +71,7 @@ export async function fetchTrendingMovies(pageNo) {
 }
 
 // Search
-export async function fetchMoviesByKeywords(keywords, pageNo) {
+export async function fetchSearchedMovies(keywords, pageNo) {
   const endpointUrl = 'search/movie';
   const searchParams = new URLSearchParams({
     api_key: API_KEY,

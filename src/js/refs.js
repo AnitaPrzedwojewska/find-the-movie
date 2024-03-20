@@ -1,14 +1,15 @@
 export let searchedWords = '';
-// export let keywords = '';
-// export let page = 1;
-// export let pages = 0;
-// export let results = 0;
+export let keywords = '';
+export let moviesOnScreen = [];
+export let page = 1;
+export let pages = 0;
+export let results = 0;
 
-export const form = document.querySelector('#formSearch');
-export const search = form.querySelector('#searchInput');
+export const formEl = document.querySelector('#formSearch');
+export const searchEl = formEl.querySelector('#searchInput');
 
-export const galleryTitle = document.querySelector('.mov-title');
-export const moviesGallery = document.querySelector('#moviesGallery');
+export const galleryTitleEl = document.querySelector('.mov-title');
+export const galleryEl = document.querySelector('#moviesGallery');
 
 export const toTopEl = document.querySelector('.to-top');
 export const toTopBtn = document.querySelector('#toTopBtn');

@@ -7,37 +7,52 @@ import {
   fetchMovieTrailers,
 } from './api-tmdb';
 
-import { form, search, gallery, galleryTitle } from './refs';
+import {
+  formEl,
+  searchEl,
+  galleryEl,
+  galleryTitleEl,
+  searchedWords,
+  keywords,
+  moviesOnScreen,
+  page,
+  pages,
+  results,
+} from './refs';
 
 import { handleMovieClick } from './modals';
 
-console.log('search: ', search);
+// console.log('search: ', search);
 
 // const POSTERS_URL = 'https://image.tmdb.org/t/p/w500/'; png
 const POSTERS_URL = 'https://image.tmdb.org/t/p/original/'; // jpg
 
-function getGenres(genres, ids) {
-  const matchGenres = [];
+// tworzy listę odpowiadających gatunków filmowych
+function getGenres(ids, genres) {
+  let matchGenres = [];
   ids.forEach(id => {
     matchGenres.push(genres.find(genre => genre.id === id).name);
   });
-  // matchGenres = (matchGenres.length > 0) ? matchGenres : '';
-  console.log('getGenres: ', matchGenres);
-  return matchGenres.join(', ');
-  // const matchGenres = list.filter(listEl => ids.includes(listEl.id));
-  // if (matchGenres.length > 1) matchGenres = matchGenres.join(', ');
-  // return matchGenres;
+  return matchGenres.length === 0
+    ? '[genres-not-found]'
+    : matchGenres.join(`, `);
 }
 
+// czyści galerię
 function newGallery() {
   moviesGallery.innerHTML = '';
 }
 
-async function showGallery(movies, gallery) {
-  // const allGenres = await fetchGenres();
-  const allGenres = GENRES_LIST;
+// const buildGallery = (moviesArray, galleryElement) => {};
 
-  const galleryItems = movies.map(
+// generuje kod HTML galerii z podanymi filmami
+async function showGallery(moviesArray, galleryElement) {
+  // get genres from API TMDB
+  // const allGenres = await fetchGenres();
+  // const allGenres = GENRES_LIST;
+  console.log('moviesArray: ', moviesArray);
+
+  const galleryItems = moviesArray.map(
     ({
       id,
       poster_path,
@@ -51,7 +66,7 @@ async function showGallery(movies, gallery) {
       overview,
     }) => {
       const poster = `${POSTERS_URL}${poster_path}`;
-      const genres = getGenres(allGenres, genre_ids);
+      const genres = getGenres(genre_ids, GENRES_LIST);
       const year = release_date.substring(0, 4);
       return `
   <li class="mov-gallery-card" data-id="${id}" mod-details-open>
@@ -80,20 +95,57 @@ async function showGallery(movies, gallery) {
     }
   );
   const galleryAll = galleryItems.join('');
-  gallery.insertAdjacentHTML('beforeend', galleryAll);
+  galleryElement.insertAdjacentHTML('beforeend', galleryAll);
 }
 
+const getMoviesData = moviesArray => {
+  const result = moviesArray.map(
+    ({
+      id,
+      poster_path,
+      title,
+      release_date,
+      genre_ids,
+      original_title,
+      vote_average,
+      popularity,
+      vote_count,
+      overview,
+    }) => ({
+      id,
+      poster_path,
+      title,
+      release_date,
+      genre_ids,
+      original_title,
+      vote_average,
+      popularity,
+      vote_count,
+      overview,
+    })
+  );
+  console.log('result of getMoviesData: ', result);
+  return result;
+};
+
 // ================================================== showTrendingMovies
+// wyświetla galerię popularnych filmów
 export async function showTrendingMovies() {
   try {
+    console.log('showTrendingMovies starts...');
     newGallery();
-    const page = 1;
+    page = 1;
     const moviesList = await fetchTrendingMovies(page);
-    const pages = moviesList.total_pages;
-    const results = moviesList.total_results;
-    const movies = moviesList.results;
-    galleryTitle.innerHTML = 'Trending movies';
-    showGallery(movies, moviesGallery);
+    const pages = moviesList.total_pages > 500 ? 500 : moviesList.total_pages;
+    // console.log('pages: ', pages);
+    const results =
+      moviesList.total_results > 1000 ? 1000 : moviesList.total_results;
+    // console.log('results: ', results);
+    // console.log('moviesList.results: ', moviesList.results);
+    let moviesOnScreen = getMoviesData(moviesList.results);
+    console.log('moviesOnScreen: ', moviesOnScreen);
+    galleryTitleEl.innerHTML = 'Trending movies';
+    showGallery(moviesOnScreen, galleryEl);
 
     handleMovieClick();
     //addEventListener for get more movies
@@ -103,36 +155,35 @@ export async function showTrendingMovies() {
 }
 
 // ================================================== showSearchedMovies
-export async function showSearchedMovies() {
-  try {
-    console.log('showSearchedMovies starts...');
-    newGallery();
-    searchedWords = search.value;
-    console.log('searchedWords: ', searchedWords);
-    form.reset();
-    const keywords = searchedWords.toLowerCase().split(' ').join('+');
-    page = 1;
-    const moviesList = await fetchSearchedMovies(keywords, page);
-    const pages = moviesList.total_pages;
-    const results = moviesList.total_results;
-    const movies = moviesList.results;
-    galleryTitle.innerHTML = `Searched movies - we found ${movies} movies with "${searchedWords}"`;
-    // const moviesList = await fetchMovieDetails(movieId);
-    // const moviesList = await fetchMovieTrailers(movieId);
-    showGallery(moviesList.results, moviesGallery);
+// wyświetla galerię wyszukiwanych filmów
+// export async function showSearchedMovies() {
+//   try {
+//     console.log('showSearchedMovies starts...');
+//     newGallery();
+//     searchedWords = searchEl.value;
+//     console.log('searchedWords: ', searchedWords);
+//     formEl.reset();
+//     const keywords = searchedWords.toLowerCase().split(' ').join('+');
+//     page = 1;
+//     const moviesList = await fetchSearchedMovies(keywords, page);
+//     const pages = moviesList.total_pages;
+//     const results = moviesList.total_results;
+//     const movies = moviesList.results;
+//     galleryTitleEl.innerHTML = `Searched movies - we found ${results} movies with "${searchedWords}"`;
+//     showGallery(moviesList.results, galleryEl);
 
-    // addEventListener for get more movies
-  } catch (error) {
-    console.log(error);
-  }
-}
+//     // addEventListener for get more movies
+//   } catch (error) {
+//     console.log(error);
+//   }
+// }
 
 // ================================================== showWatched
-export function showWatched() {
-  console.log('showWatched starts...');
-}
+// export function showWatched() {
+//   console.log('showWatched starts...');
+// }
 
 // ================================================== showQueue
-export function showQueue() {
-  console.log('showQueue starts...');
-}
+// export function showQueue() {
+//   console.log('showQueue starts...');
+// }

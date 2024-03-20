@@ -20,6 +20,8 @@ import {
   results,
 } from './refs';
 
+import { setToLocalStorage } from './local-storage';
+
 import { handleMovieClick } from './modals';
 
 // console.log('search: ', search);
@@ -50,7 +52,6 @@ async function showGallery(moviesArray, galleryElement) {
   // get genres from API TMDB
   // const allGenres = await fetchGenres();
   // const allGenres = GENRES_LIST;
-  console.log('moviesArray: ', moviesArray);
 
   const galleryItems = moviesArray.map(
     ({
@@ -124,7 +125,6 @@ const getMoviesData = moviesArray => {
       overview,
     })
   );
-  console.log('result of getMoviesData: ', result);
   return result;
 };
 
@@ -132,7 +132,6 @@ const getMoviesData = moviesArray => {
 // wyświetla galerię popularnych filmów
 export async function showTrendingMovies() {
   try {
-    console.log('showTrendingMovies starts...');
     newGallery();
     let pageNo = 1;
     const moviesList = await fetchTrendingMovies(pageNo);
@@ -140,10 +139,8 @@ export async function showTrendingMovies() {
     // console.log('pages: ', pages);
     const results =
       moviesList.total_results > 1000 ? 1000 : moviesList.total_results;
-    // console.log('results: ', results);
-    // console.log('moviesList.results: ', moviesList.results);
     let moviesOnScreen = getMoviesData(moviesList.results);
-    console.log('moviesOnScreen: ', moviesOnScreen);
+    setToLocalStorage('moviesOnScreen', moviesOnScreen);
     galleryTitleEl.innerHTML = 'Trending movies';
     showGallery(moviesOnScreen, galleryEl);
 

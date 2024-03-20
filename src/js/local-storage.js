@@ -1,13 +1,12 @@
 const WATCHED = 'watched';
 const QUEUE = 'queue';
 
-function setToLocalStorage(key, value) {
+export function setToLocalStorage(key, value) {
   localStorage.setItem(key, JSON.stringify(value));
 }
 
-function getFromLocalStorage(key) {
-  const data = localStorage.getItem(key);
-  return JSON.parse(data);
+export function getFromLocalStorage(key) {
+  return JSON.parse(localStorage.getItem(key));
 }
 
 function deleteFromLocalStorage(key) {
@@ -29,7 +28,7 @@ function AddToWatched(movie, list) {
 
 function RemoveFromWatched(movie, list) {
   if (!list.include(movie)) {
-    return
+    return;
   }
   list.remove(movie);
   setToLocalStorage(WATCHED, list);

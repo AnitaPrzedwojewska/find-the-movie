@@ -1,4 +1,4 @@
-import { showWatched, showQueue } from "./movies";
+// import { showWatched, showQueue } from "./movies";
 
 const headerEl = document.querySelector('.header');
 

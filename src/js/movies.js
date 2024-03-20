@@ -134,8 +134,8 @@ export async function showTrendingMovies() {
   try {
     console.log('showTrendingMovies starts...');
     newGallery();
-    page = 1;
-    const moviesList = await fetchTrendingMovies(page);
+    let pageNo = 1;
+    const moviesList = await fetchTrendingMovies(pageNo);
     const pages = moviesList.total_pages > 500 ? 500 : moviesList.total_pages;
     // console.log('pages: ', pages);
     const results =

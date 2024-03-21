@@ -1,4 +1,6 @@
-import { getFromLocalStorage } from './local-storage';
+import { getFromSessionStorage } from './storage';
+import { GENRES_LIST } from './api-tmdb';
+import { getGenres } from './movies';
 
 // pobieranie id filmu z klikniętego elementu listy w galerii
 const getMovieId = event => {
@@ -6,10 +8,32 @@ const getMovieId = event => {
   event.stopPropagation();
 };
 
+const closeDetails = (event) => {
+  const modDetails = document.querySelector('#modDetails');
+  modDetails.innerHTML = '';
+  modDetails.classList.add('hidden');
+}
+
+const handleCloseDetails = () => {
+  // kliknięcie w przycisk zamykania okna
+  const closeBtnEl = document.querySelector('[mod-details-close]');
+  closeBtnEl.addEventListener('click', closeDetails);
+  // kliknięcie poza oknem
+  const modDetails = document.querySelector('#modDetails');
+  modDetails.addEventListener('click', (event) => {
+    if (event.target == modDetails) closeDetails();
+  });
+  // naciśnięcie klawsza Esc
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') closeDetails();
+  })
+}
+
 const showDetails = movieId => {
   const modDetails = document.querySelector('#modDetails');
-  const moviesOnScreen = getFromLocalStorage('moviesOnScreen');
+  const moviesOnScreen = getFromSessionStorage('moviesOnScreen');
   const movie = moviesOnScreen.find(movie => movie.id == movieId);
+  const genres = getGenres(movie.genre_ids, GENRES_LIST);
   const detailsCode = `
   <div class="mod-details">
     <button type="button" class="btn mod-close animate" mod-details-close>
@@ -24,7 +48,9 @@ const showDetails = movieId => {
       <ul class="list mod-det-list">
         <li class="mod-det-item">
           <p class="mod-det-item-name">Vote / Votes</p>
-          <p class="mod-det-item-value">${movie.vote_average} / ${movie.vote_count}</p>
+          <p class="mod-det-item-value">${movie.vote_average.toFixed(1)} / ${
+    movie.vote_count
+  }</p>
         </li>
         <li class="mod-det-item">
           <p class="mod-det-item-name">Popularity</p>
@@ -36,7 +62,7 @@ const showDetails = movieId => {
         </li>
         <li class="mod-det-item">
           <p class="mod-det-item-name">Genre</p>
-          <p class="mod-det-item-value">${movie.genre_ids}</p>
+          <p class="mod-det-item-value">${genres}</p>
         </li>
       </ul>
       <div class="mod-det-about">
@@ -51,6 +77,7 @@ const showDetails = movieId => {
   </div>`;
   modDetails.insertAdjacentHTML('beforeend', detailsCode);
   modDetails.classList.remove('hidden');
+  handleCloseDetails();
 };
 
 // obsługa zdarzenie kliknięcia na kartę w galerii filmów

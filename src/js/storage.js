@@ -1,11 +1,19 @@
 const WATCHED = 'watched';
 const QUEUE = 'queue';
 
-export function setToLocalStorage(key, value) {
+export function setToSessionStorage(key, value) {
+  sessionStorage.setItem(key, JSON.stringify(value));
+}
+
+export function getFromSessionStorage(key) {
+  return JSON.parse(sessionStorage.getItem(key));
+}
+
+function setToLocalStorage(key, value) {
   localStorage.setItem(key, JSON.stringify(value));
 }
 
-export function getFromLocalStorage(key) {
+function getFromLocalStorage(key) {
   return JSON.parse(localStorage.getItem(key));
 }
 

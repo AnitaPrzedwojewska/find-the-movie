@@ -1,26 +1,8 @@
-import {
-  GENRES_LIST,
-  getPoster,
-  fetchTrendingMovies,
-  fetchSearchedMovies,
-  fetchMovieDetails,
-  fetchMovieTrailers,
-} from './api-tmdb';
+import { GENRES_LIST, fetchTrendingMovies } from './api-tmdb';
 
-import {
-  formEl,
-  searchEl,
-  galleryEl,
-  galleryTitleEl,
-  searchedWords,
-  keywords,
-  moviesOnScreen,
-  page,
-  pages,
-  results,
-} from './refs';
+import { galleryEl, galleryTitleEl } from './refs';
 
-import { setToLocalStorage } from './local-storage';
+import { setToSessionStorage } from './storage';
 
 import { handleMovieClick } from './modals';
 
@@ -30,7 +12,7 @@ import { handleMovieClick } from './modals';
 const POSTERS_URL = 'https://image.tmdb.org/t/p/original/'; // jpg
 
 // tworzy listę odpowiadających gatunków filmowych
-function getGenres(ids, genres) {
+export function getGenres(ids, genres) {
   let matchGenres = [];
   ids.forEach(id => {
     matchGenres.push(genres.find(genre => genre.id === id).name);
@@ -41,7 +23,7 @@ function getGenres(ids, genres) {
 }
 
 // czyści galerię
-function newGallery() {
+function clearGallery() {
   moviesGallery.innerHTML = '';
 }
 
@@ -132,7 +114,7 @@ const getMoviesData = moviesArray => {
 // wyświetla galerię popularnych filmów
 export async function showTrendingMovies() {
   try {
-    newGallery();
+    clearGallery();
     let pageNo = 1;
     const moviesList = await fetchTrendingMovies(pageNo);
     const pages = moviesList.total_pages > 500 ? 500 : moviesList.total_pages;
@@ -140,7 +122,7 @@ export async function showTrendingMovies() {
     const results =
       moviesList.total_results > 1000 ? 1000 : moviesList.total_results;
     let moviesOnScreen = getMoviesData(moviesList.results);
-    setToLocalStorage('moviesOnScreen', moviesOnScreen);
+    setToSessionStorage('moviesOnScreen', moviesOnScreen);
     galleryTitleEl.innerHTML = 'Trending movies';
     showGallery(moviesOnScreen, galleryEl);
 
@@ -156,7 +138,7 @@ export async function showTrendingMovies() {
 // export async function showSearchedMovies() {
 //   try {
 //     console.log('showSearchedMovies starts...');
-//     newGallery();
+//     clearGallery();
 //     searchedWords = searchEl.value;
 //     console.log('searchedWords: ', searchedWords);
 //     formEl.reset();

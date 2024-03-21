@@ -8,26 +8,28 @@ const getMovieId = event => {
   event.stopPropagation();
 };
 
-const closeDetails = (event) => {
+// zamknięcie okna i wyczyszczenie jego kodu
+const closeDetails = event => {
   const modDetails = document.querySelector('#modDetails');
   modDetails.innerHTML = '';
   modDetails.classList.add('hidden');
-}
+};
 
+// obsługa zdarzeń zamykających okno
 const handleCloseDetails = () => {
   // kliknięcie w przycisk zamykania okna
   const closeBtnEl = document.querySelector('[mod-details-close]');
   closeBtnEl.addEventListener('click', closeDetails);
   // kliknięcie poza oknem
   const modDetails = document.querySelector('#modDetails');
-  modDetails.addEventListener('click', (event) => {
+  modDetails.addEventListener('click', event => {
     if (event.target == modDetails) closeDetails();
   });
   // naciśnięcie klawsza Esc
-  document.addEventListener('keydown', (event) => {
-    if (event.key === 'Escape') closeDetails();
-  })
-}
+  document.addEventListener('keydown', event => {
+    if (event.key === 'Escape') closeDetails()
+  });
+};
 
 const showDetails = movieId => {
   const modDetails = document.querySelector('#modDetails');

@@ -19,9 +19,9 @@ showTrendingMovies();
 
 window.addEventListener('scroll', toggleScrollToTop);
 
-// formEl.addEventListener('submit', event => {
-//   event.preventDefault();
-//   showSearchedMovies();
-// });
+formEl.addEventListener('submit', event => {
+  event.preventDefault();
+  showSearchedMovies();
+});
 
 

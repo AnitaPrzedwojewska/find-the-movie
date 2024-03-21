@@ -1,6 +1,10 @@
-import { GENRES_LIST, fetchTrendingMovies } from './api-tmdb';
+import {
+  GENRES_LIST,
+  fetchTrendingMovies,
+  fetchSearchedMovies,
+} from './api-tmdb';
 
-import { galleryEl, galleryTitleEl } from './refs';
+import { galleryEl, galleryTitleEl, formEl, searchEl } from './refs';
 
 import { setToSessionStorage } from './storage';
 
@@ -114,20 +118,26 @@ const getMoviesData = moviesArray => {
 // wyświetla galerię popularnych filmów
 export async function showTrendingMovies() {
   try {
+    // czyści kod galerii
     clearGallery();
     let pageNo = 1;
+    // pobiera z bazy porcję filmów wg nr strony
     const moviesList = await fetchTrendingMovies(pageNo);
+    // odczytuje i granicza wyniki do 1000 i liczbę stron do 500
     const pages = moviesList.total_pages > 500 ? 500 : moviesList.total_pages;
-    // console.log('pages: ', pages);
     const results =
       moviesList.total_results > 1000 ? 1000 : moviesList.total_results;
+    // tworzy okrojoną listę filmów wyświetlanych na ekranie i zapisuje ją w sesji
     let moviesOnScreen = getMoviesData(moviesList.results);
     setToSessionStorage('moviesOnScreen', moviesOnScreen);
+    // nadaje tytuł galerii
     galleryTitleEl.innerHTML = 'Trending movies';
+    // wyświetla galerię
     showGallery(moviesOnScreen, galleryEl);
-
+    // dodaje obsługę kliknięcia w elementy galerii
     handleMovieClick();
-    //addEventListener for get more movies
+
+    // addEventListener for get more movies
   } catch (error) {
     console.log(error);
   }
@@ -135,27 +145,36 @@ export async function showTrendingMovies() {
 
 // ================================================== showSearchedMovies
 // wyświetla galerię wyszukiwanych filmów
-// export async function showSearchedMovies() {
-//   try {
-//     console.log('showSearchedMovies starts...');
-//     clearGallery();
-//     searchedWords = searchEl.value;
-//     console.log('searchedWords: ', searchedWords);
-//     formEl.reset();
-//     const keywords = searchedWords.toLowerCase().split(' ').join('+');
-//     page = 1;
-//     const moviesList = await fetchSearchedMovies(keywords, page);
-//     const pages = moviesList.total_pages;
-//     const results = moviesList.total_results;
-//     const movies = moviesList.results;
-//     galleryTitleEl.innerHTML = `Searched movies - we found ${results} movies with "${searchedWords}"`;
-//     showGallery(moviesList.results, galleryEl);
+export async function showSearchedMovies() {
+  try {
+    // czyści kod galerii
+    clearGallery();
+    // pobiera z formularza wpisane słowa i resetuje formularz
+    searchedWords = searchEl.value;
+    formEl.reset();
+    // zamienia słowa na ciąg keywords, np. green+book
+    const keywords = searchedWords.toLowerCase().split(' ').join('+');
+    page = 1;
+    // pobiera z bazy porcję filmów wg słów kluczowych i nr strony
+    const moviesList = await fetchSearchedMovies(keywords, page);
+    // odczytuje liczbę wyników i stron
+    const pages = moviesList.total_pages;
+    const results = moviesList.total_results;
+    // tworzy okrojoną listę filmów wyświetlanych na ekranie i zapisuje ją w sesji
+    let moviesOnScreen = getMoviesData(moviesList.results);
+    setToSessionStorage('moviesOnScreen', moviesOnScreen);
+    // nadaje tytuł galerii
+    galleryTitleEl.innerHTML = `Searched movies - we found ${results} movies with "${searchedWords}"`;
+    // wyświetla galerię
+    showGallery(moviesOnScreen, galleryEl);
+    // dodaje obsługę kliknięcia w elementy galerii
+    handleMovieClick();
 
-//     // addEventListener for get more movies
-//   } catch (error) {
-//     console.log(error);
-//   }
-// }
+    // addEventListener for get more movies
+  } catch (error) {
+    console.log(error);
+  }
+}
 
 // ================================================== showWatched
 // export function showWatched() {

@@ -1,0 +1,28 @@
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  column-gap: 4px;
+  margin-top: 40px;
+}
+
+.pag-item {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+}
+.pag-item:hover,
+.pag-item:active {
+  background-color: lightgray;
+}
+
+.pag-item.current {
+  background-color: var(--main-accent);
+}
+
+.arrow {
+  border: none;
+}

@@ -33,9 +33,13 @@ const handleCloseDetails = () => {
 
 const showDetails = movieId => {
   const modDetails = document.querySelector('#modDetails');
+  // pobranie z pamięci listy filmów wyświatlanych na ekranie
   const moviesOnScreen = getFromSessionStorage('moviesOnScreen');
+  // wybranie z tej listy filmu o podanym id
   const movie = moviesOnScreen.find(movie => movie.id == movieId);
+  // wygenerowanie listy gatunków dla tego filmu
   const genres = getGenres(movie.genre_ids, GENRES_LIST);
+  // wygenerowanie kodu okna modalnego z iformacjami o filmie
   const detailsCode = `
   <div class="mod-details">
     <button type="button" class="btn mod-close animate" mod-details-close>
@@ -77,8 +81,11 @@ const showDetails = movieId => {
       </div>
     </div>
   </div>`;
+  // wstawienie kodu do znacznika okna
   modDetails.insertAdjacentHTML('beforeend', detailsCode);
+  // wyświetlenie okna
   modDetails.classList.remove('hidden');
+  // włączenie obsługi zdarzeń zamkykających okno
   handleCloseDetails();
 };
 

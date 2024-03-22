@@ -10,6 +10,8 @@ import { setToSessionStorage } from './storage';
 
 import { handleMovieClick } from './modals';
 
+import { showPagination } from './pagination';
+
 // console.log('search: ', search);
 
 // const POSTERS_URL = 'https://image.tmdb.org/t/p/w500/'; png
@@ -136,7 +138,9 @@ export async function showTrendingMovies() {
     showGallery(moviesOnScreen, galleryEl);
     // dodaje obsługę kliknięcia w elementy galerii
     handleMovieClick();
-
+    // wyświetla paginację
+    // showPagination(pageNo, pages);
+    showPagination(7, pages);
     // addEventListener for get more movies
   } catch (error) {
     console.log(error);
@@ -154,9 +158,9 @@ export async function showSearchedMovies() {
     formEl.reset();
     // zamienia słowa na ciąg keywords, np. green+book
     const keywords = searchedWords.toLowerCase().split(' ').join('+');
-    page = 1;
+    pageNo = 1;
     // pobiera z bazy porcję filmów wg słów kluczowych i nr strony
-    const moviesList = await fetchSearchedMovies(keywords, page);
+    const moviesList = await fetchSearchedMovies(keywords, pageNo);
     // odczytuje liczbę wyników i stron
     const pages = moviesList.total_pages;
     const results = moviesList.total_results;
@@ -169,7 +173,8 @@ export async function showSearchedMovies() {
     showGallery(moviesOnScreen, galleryEl);
     // dodaje obsługę kliknięcia w elementy galerii
     handleMovieClick();
-
+    // wyświetla paginację
+    showPagination(pageNo, pages);
     // addEventListener for get more movies
   } catch (error) {
     console.log(error);
